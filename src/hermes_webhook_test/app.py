@@ -5,18 +5,23 @@ import os
 from wsgiref.simple_server import WSGIServer, make_server
 from wsgiref.types import StartResponse, WSGIEnvironment
 
+from hermes_webhook_test import __version__
+
 
 def application(environ: WSGIEnvironment, start_response: StartResponse) -> list[bytes]:
     """Serve a small JSON health endpoint for local workflow/deploy checks."""
     path = str(environ.get("PATH_INFO", "/"))
     method = str(environ.get("REQUEST_METHOD", "GET")).upper()
 
-    if path != "/health":
+    if path not in {"/health", "/version"}:
         status = "404 Not Found"
         payload = {"error": "not_found"}
     elif method != "GET":
         status = "405 Method Not Allowed"
         payload = {"error": "method_not_allowed"}
+    elif path == "/version":
+        status = "200 OK"
+        payload = {"version": __version__}
     else:
         status = "200 OK"
         payload = {"status": "ok"}
