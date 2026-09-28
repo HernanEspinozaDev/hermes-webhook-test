@@ -1,26 +1,19 @@
-# hermes-webhook-test
+# Lúmina Plata
 
-A small local-only Python WSGI service used to exercise the Hermes Kanban → GitHub → CI → webhook review workflow.
+Tienda web estática de demostración para una boutique de joyas de plata. El sitio está hecho con HTML y CSS, sin backend ni dependencias de ejecución: una base sencilla para probar el flujo de trabajo de Kanban, pull requests, revisión y notificaciones de Hermes.
 
-## CI
+## Ver localmente
 
-[![CI](https://github.com/HernanEspinozaDev/hermes-webhook-test/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/HernanEspinozaDev/hermes-webhook-test/actions/workflows/ci.yml)
+Abre `index.html` directamente en el navegador. Los estilos y recursos gráficos están guardados localmente en el repositorio.
 
-## Run locally
+## Validar
 
-```bash
-python -m pip install -e '.[dev]'
-python -m hermes_webhook_test.app
-```
-
-The service binds only to `127.0.0.1:8765`. Check `http://127.0.0.1:8765/health` for its health response.
-
-## Validate
+Requiere Node.js 22 o posterior, sin instalar paquetes:
 
 ```bash
-ruff check .
-pytest -q
-python -m build
+node --test
 ```
 
-The original README edits used to test GitHub webhooks have been retained in the repository history.
+La suite verifica el contenido principal, los enlaces internos, los recursos locales y los estilos responsivos. GitHub Actions ejecuta las mismas pruebas en cada pull request.
+
+> Marca, productos, descripciones y precios son contenido ficticio de demostración; no hay compra ni procesamiento de pagos.
