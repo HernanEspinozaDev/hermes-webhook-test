@@ -1,10 +1,26 @@
 # hermes-webhook-test
 
-## Webhook test
-This change was created by Hermes to test the GitHub pull request webhook.
+A small local-only Python WSGI service used to exercise the Hermes Kanban → GitHub → CI → webhook review workflow.
 
-## Second webhook test
-This pull request was created to verify the GitHub webhook integration a second time.
+## CI
 
-## Approval workflow test
-This pull request was created to test review and merge approval from Telegram.
+[![CI](https://github.com/HernanEspinozaDev/hermes-webhook-test/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/HernanEspinozaDev/hermes-webhook-test/actions/workflows/ci.yml)
+
+## Run locally
+
+```bash
+python -m pip install -e '.[dev]'
+python -m hermes_webhook_test.app
+```
+
+The service binds only to `127.0.0.1:8765`. Check `http://127.0.0.1:8765/health` for its health response.
+
+## Validate
+
+```bash
+ruff check .
+pytest -q
+python -m build
+```
+
+The original README edits used to test GitHub webhooks have been retained in the repository history.
